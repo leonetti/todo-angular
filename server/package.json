@@ -1,0 +1,24 @@
+{
+  "name": "Backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alex Leonetti",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "connect-mongo": "^0.4.2",
+    "express": "^4.13.3",
+    "express-session": "^1.12.1",
+    "mongodb": "^1.4.39",
+    "mongoose": "^4.2.4",
+    "mongoose-session": "0.0.2",
+    "node-uuid": "^1.4.3"
+  },
+  "devDependencies": {
+    "should": "^7.1.1"
+  }
+}
