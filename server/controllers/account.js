@@ -24,6 +24,7 @@ var AccountController = function(userModel, session, mailer) {
   this.userModel = userModel;
   this.session = session;
   this.mailer = mailer;
+  this.User = require('../models/user.js');
 };
 
 // Creating the setter and getter methods for the session
@@ -234,7 +235,7 @@ AccountController.prototype.resetPassword = function(email, callback) {
         }
       }));
     }
-  })
+  });
 };
 
 // To reset password user needs to provide their email address and a new
@@ -253,6 +254,7 @@ AccountController.prototype.resetPasswordFinal = function(email, newPassword, pa
       }
     }));
   }
+
   // If password reset hash value stored in session and value supplied by user
     // don't match
   if(me.session.passwordResetHash !== passwordResetHash) {
@@ -309,5 +311,33 @@ AccountController.prototype.resetPasswordFinal = function(email, newPassword, pa
     });
   });
 };
+
+AccountController.prototype.getUserFromUserRegistration = function(userRegistrationModel) {
+    var me = this;
+
+    // console.log('userPassword -------->', userRegistrationModel.password);
+    // console.log('userPassword Conf --->', userRegistrationModel.passwordConfirm);
+
+    if (userRegistrationModel.password !== userRegistrationModel.passwordConfirm) {
+        return new me.ApiResponse({ success: false, extras: { msg: me.ApiMessages.PASSWORD_CONFIRM_MISMATCH } });
+    }
+
+    var passwordSaltIn = this.uuid.v4(),
+            cryptoIterations = 10000, // Must match iterations used in controller#hashPassword.
+            cryptoKeyLen = 64,       // Must match keyLen used in controller#hashPassword.
+            passwordHashIn;
+
+    var user = new this.User({
+        email: userRegistrationModel.email,
+        firstName: userRegistrationModel.firstName,
+        lastName: userRegistrationModel.lastName,
+        passwordHash: this.crypto.pbkdf2Sync(userRegistrationModel.password, passwordSaltIn, cryptoIterations, cryptoKeyLen),
+        passwordSalt: passwordSaltIn
+    });
+
+    // console.log(user.passwordHash);
+
+    return new me.ApiResponse({ success: true, extras: { user: user } });
+}
 
 module.exports = AccountController;

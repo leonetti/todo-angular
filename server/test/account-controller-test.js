@@ -157,7 +157,152 @@ describe('AccountController', function() {
   });
 
   describe('#resetPassword', function() {
-    it('Returns database error')
-  })
+    it('Returns database error', function(done) {
+      userModelMock.setError(true);
+      userModelMock.seedUsers();
+      var testUser = userModelMock.getTestUser();
+
+      controller.resetPassword(testUser.email, function(err, apiResponse) {
+        should(apiResponse.success).equal(false);
+        should(apiResponse.extras.msg).equal(ApiMessages.DB_ERROR);
+        done();
+      });
+    });
+
+    it('Resets password hash', function(done) {
+      userModelMock.seedUsers();
+      var testUser = userModelMock.getTestUser();
+
+      controller.resetPassword(testUser.email, function(err, apiResponse) {
+        if(err)
+          return done(err);
+
+        should(apiResponse.success).equal(true);
+        should.exist(controller.getSession().passwordResetHash);
+        should.exist(apiResponse.extras.passwordResetHash);
+        should(controller.getSession().emailWhoRequestedPasswordReset).equal(testUser.email);
+        should(controller.getSession().passwordResetHash).equal(apiResponse.extras.passwordResetHash);
+        done();
+      });
+    });
+
+    it('Returns "Email not found"', function(done) {
+      userModelMock.seedUsers();
+      var testUser = userModelMock.getTestUser(),
+          nonExistentEmailAddress = 'dummy@email.com';
+
+      controller.resetPassword(nonExistentEmailAddress, function(err, apiResponse) {
+        if(err)
+          return done(err);
+
+        should(apiResponse.success).equal(false);
+        should(apiResponse.extras.msg).equal(ApiMessages.EMAIL_NOT_FOUND);
+        done();
+      });
+    });
+  });
+
+  describe('#resetPasswordFinal', function() {
+    it('Returns "Password reset expired"', function(done) {
+      var email = 'irrelevant to the test',
+          newPassword = 'irrelevant to the test',
+          passwordResetHash = 'irrelevant to the test';
+
+      controller.setSession({}); // Destroy session.passwordResetHash
+      controller.resetPasswordFinal(email, newPassword, passwordResetHash, function(err, apiResponse) {
+        should(apiResponse.success).equal(false);
+        should(apiResponse.extras.msg).equal(ApiMessages.PASSWORD_RESET_EXPIRED);
+        done();
+      });
+    });
+
+    it('Returns "Invalid password reset hash"', function(done) {
+      var email = 'irrelevant to the test',
+          newPassword = 'irrelevant to the test',
+          passwordResetHash = uuid.v4();
+
+      controller.getSession({
+        passwordResetHash: uuid.v4()
+      });
+      controller.resetPasswordFinal(email, newPassword, passwordResetHash, function(err, apiResponse) {
+        should(apiResponse.success).equal(false);
+        should(apiResponse.extras.msg).equal(ApiMessages.PASSWORD_RESET_HASH_MISMATCH);
+        done();
+      });
+    });
+
+    it('Returns "Invalid password reset email"', function(done) {
+      var email = 'test value',
+          newPassword = 'irrelevant to the test',
+          emailWhoRequestedPasswordReset = 'a different test value',
+          passwordResetHash = 'irrelevant to the test';
+
+      controller.setSession({
+        passwordResetHash: passwordResetHash,
+        emailWhoRequestedPasswordReset: emailWhoRequestedPasswordReset
+      });
+      controller.resetPasswordFinal(email, newPassword, passwordResetHash, function(err, apiResponse) {
+        should(apiResponse.success).equal(false);
+        should(apiResponse.extras.msg).equal(ApiMessages.PASSWORD_RESET_EMAIL_MISMATCH);
+        done();
+      });
+    });
+
+    it('Returns database error', function(done) {
+      userModelMock.setError(true);
+      userModelMock.seedUsers();
+      var testUser = userModelMock.getTestUser(),
+          passwordResetHash = uuid.v4();
+          newPassword = 'NewPassword';
+
+      controller.setSession({
+        passwordResetHash: passwordResetHash,
+        emailWhoRequestedPasswordReset: testUser.email
+      });
+      controller.resetPasswordFinal(testUser.email, newPassword, passwordResetHash, function(err, apiResponse) {
+        should(apiResponse.success).equal(false);
+        should(apiResponse.extras.msg).equal(ApiMessages.DB_ERROR);
+        done();
+      });
+    });
+
+    it('Returns "Could not reset password"', function(done) {
+      userModelMock.setNumberAffected(0);
+      userModelMock.seedUsers();
+      var testUser = userModelMock.getTestUser(),
+          passwordResetHash = uuid.v4();
+          newPassword = 'NewPassword';
+
+      controller.setSession({
+        passwordResetHash: passwordResetHash,
+        emailWhoRequestedPasswordReset: testUser.email
+      });
+      controller.resetPasswordFinal(testUser.email, newPassword, passwordResetHash, function(err, apiResponse) {
+        should(apiResponse.success).equal(false);
+        should(apiResponse.extras.msg).equal(ApiMessages.COULD_NOT_RESET_PASSWORD);
+        done();
+      });
+    });
+
+    it('Resets user\'s password', function(done) {
+      userModelMock.setNumberAffected(1);
+      userModelMock.seedUsers();
+      var testUser = userModelMock.getTestUser(),
+          passwordResetHash = uuid.v4();
+          newPassword = 'NewPassword';
+
+      controller.setSession({
+        passwordResetHash: passwordResetHash,
+        emailWhoRequestedPasswordReset: testUser.email
+      });
+      controller.resetPasswordFinal(testUser.email, newPassword, passwordResetHash, function(err, apiResponse) {
+        if(err)
+          return done(err);
+        should(apiResponse.success).equal(true);
+        done();
+      });
+    })
+
+  });
 
 });
