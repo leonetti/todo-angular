@@ -1,0 +1,18 @@
+<div id="resetFinal__container">
+  <h1 id="login__title">Angular</h1>
+  <h2 id="login__title--sub">Reset Password</h2>
+  <form>
+    <input type="email" ng-model="user.email" placeholder="email" class="login__input input--top input__icon--email">
+    <input type="text" ng-model="user.passwordResetHash" placeholder="reset code" class="login__input input__icon--password">
+    <input type="password" ng-model="user.newPassword" placeholder="new password" class="login__input input__icon--password">
+    <input type="password" ng-model="user.newPasswordConfirm" placeholder="confirm password" class="login__input input--bottom input__icon--password">
+    <p id="resetFinal__error--empty">Please enter all fields</p>
+    <p id="resetFinal__error--email">Email mismatch</p>
+    <p id="resetFinal__error--password">Passwords do not match</p>
+    <p id="resetFinal__error--expired">Password reset code expired</p>
+    <p id="resetFinal__error--badHash">Password code incorrect</p>
+    <button class="resetFinal__submit" ng-click="resetFinal();">Submit</button>
+    <h3 class="line__text">or</h3>
+    <button class="login__submit" ui-sref="login">Login</button>
+  </form>
+</div>

@@ -4,19 +4,25 @@
   <meta charset=utf-8 />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title></title>
-  <!-- // <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script> -->
-  <script src="bower_components/angular/angular.min.js"></script
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,100,700,300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="styles/main.css">
 </head>
 <body>
-  <h1 id="main__title">Angular</h1>
-  <div class="main__info">
-    <p class="main__info--item">Authentication</p>
-    <p class="main__info--item">API</p>
-    <p class="main__info--item">Database</p>
+  <!-- the ui-view directive is where our templates will be loaded into when navigated to -->
+  <div id="container">
+    <div ui-view id="main__container"></div>
   </div>
 
   <script type="text/javascript" src="app/services/services.js"></script>
   <script type="text/javascript" src="app/login/login.js"></script>
+  <script type="text/javascript" src="app/register/register.js"></script>
+  <script type="text/javascript" src="app/database/database.js"></script>
+  <script type="text/javascript" src="app/reset/reset.js"></script>
+  <script type="text/javascript" src="app/resetFinal/resetFinal.js"></script>
+  <script type="text/javascript" src="index.js"></script>
   <script type="text/javascript" src="app/app.js"></script>
 </body>
 </html>

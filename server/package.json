@@ -17,7 +17,8 @@
     "mongodb": "^1.4.39",
     "mongoose": "^4.2.4",
     "mongoose-session": "0.0.2",
-    "node-uuid": "^1.4.3"
+    "node-uuid": "^1.4.3",
+    "nodemailer": "^1.10.0"
   },
   "devDependencies": {
     "should": "^7.1.1"

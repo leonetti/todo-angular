@@ -1,0 +1,12 @@
+<div id="reset__container">
+  <h1 id="login__title">Angular</h1>
+  <h2 id="login__title--sub">Reset Password</h2>
+  <form>
+    <input type="email" ng-model="user.email" placeholder="email" class="login__input input--solo input__icon--email">
+    <p id="reset__error--empty">Please enter valid email</p>
+    <p id="reset__error--email">Email not found</p>
+    <button class="reset__submit" ng-click="reset();">Submit</button>
+    <h3 class="line__text">or</h3>
+    <button class="login__submit" ui-sref="resetFinal">Enter Code</button>
+  </form>
+</div>

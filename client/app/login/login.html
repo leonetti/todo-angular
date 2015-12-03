@@ -1,0 +1,16 @@
+<div id="login__container">
+  <h1 id="login__title">Angular</h1>
+  <h2 id="login__title--sub">Login Below</h2>
+  <form>
+    <input type="email" ng-model="user.email" placeholder="email" class="login__input input--top input__icon--email">
+    <input type="password" ng-model="user.password" placeholder="password" class="login__input input--bottom input__icon--password">
+    <p id="login__error--empty">Please enter valid email and password</p>
+    <p id="login__error--email">Email not found</p>
+    <p id="login__error--password">Incorrect Password</p>
+    <button class="login__submit" ng-click="login();">Login</button>
+    <input type="checkbox" id="login__remember" ng-model="remember"><p id="login__remember--text">Remember Me</p>
+    <a ui-sref="reset" class="login__reset--password">Forgot Password</a>
+    <h3 class="line__text">or</h3>
+    <button class="login__submit" ui-sref="register">Register</button>
+  </form>
+</div>

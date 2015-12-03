@@ -15,6 +15,11 @@
 
 // ApiResponse, ApiMessages, and UserProfile internal variables refer the model
   // Classes with the same names created
+
+// Nodemailer is used to send mail server side
+  // Transporter is an object that is able to send mail
+  // Transport is the transport mechanism
+  // Defaults defines default values for mail options
 var AccountController = function(userModel, session, mailer) {
   this.crypto = require('crypto');
   this.uuid = require('node-uuid');
@@ -25,6 +30,20 @@ var AccountController = function(userModel, session, mailer) {
   this.session = session;
   this.mailer = mailer;
   this.User = require('../models/user.js');
+  this.nodemailer = require('nodemailer');
+  this.transporter = this.nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'leonetti.tech@gmail.com',
+        pass: 'compacto1'
+    }
+  }, {
+    // default values for sendMail method
+    from: 'leonetti.tech@gmail.com',
+    headers: {
+        'Reset-Password': 'code'
+    }
+  });
 };
 
 // Creating the setter and getter methods for the session
@@ -194,6 +213,8 @@ AccountController.prototype.register = function(newUser, callback) {
 AccountController.prototype.resetPassword = function(email, callback) {
   var me = this;
 
+
+
   // Use email address to retrieve user's record from the database
   me.userModel.findOne({
     email: email
@@ -218,6 +239,11 @@ AccountController.prototype.resetPassword = function(email, callback) {
       // This method sends a message to the user, container the uuid and password
         // reset link they can use to change their password
       me.mailer.sendPasswordResetHash(email, passwordResetHash);
+      me.transporter.sendMail({
+        to: email,
+        subject: 'Reset Password',
+        text: 'Here is your code to reset your password: ' + passwordResetHash
+      })
 
       // Save the password reset hash and the user's email in the Controller's
         // session variable to later compare them

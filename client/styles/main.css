@@ -1,0 +1,448 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/*CSS STARTS HERE*/
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  font-size: 62.5%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  min-height: 650px;
+  font-family: 'Lato', sans-serif;
+  background-color: rgba(0, 176, 206, 0.3);
+  background: url('../images/login-bg.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#main__container {
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+}
+
+/*LOGIN*/
+
+#login__container,
+#register__container,
+#reset__container,
+#resetFinal__container,
+#database__container {
+  width: 400px;
+  height: 500px;
+  margin: 50px auto 0 auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+}
+
+#login__title,
+#login__title--sub {
+  text-align: center;
+  color: #FFF;
+  font-weight: 100;
+  font-size: 4rem;
+  padding-top: 30px;
+  text-transform: uppercase;
+  letter-spacing: 15px;
+}
+
+#login__title--sub {
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+}
+
+.login__input {
+  width: 80%;
+  height: 50px;
+  margin: 0 auto;
+  display: block;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  font-size: 2rem;
+}
+
+::-webkit-input-placeholder {
+   font-weight: 100;
+   letter-spacing: 1px;
+}
+
+.login__input:focus {
+  outline: 2px solid rgba(0, 176, 206, 0.8);
+}
+
+.input--top {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.input__icon--email::-webkit-input-placeholder::before {
+  font-family: fontAwesome;
+  content:'\f003  ';
+  font-size: 2rem;
+}
+
+.input--bottom {
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.input__icon--password::-webkit-input-placeholder::before {
+  font-family: fontAwesome;
+  content:'\f023  ';
+  font-size: 2rem;
+}
+
+#login__error--empty,
+#login__error--email,
+#login__error--password,
+#register__error--empty,
+#register__error--password,
+#reset__error--empty,
+#reset__error--email,
+#resetFinal__error--email,
+#resetFinal__error--empty,
+#resetFinal__error--password,
+#resetFinal__error--badHash,
+#resetFinal__error--expired  {
+  color: #FFF;
+  margin-left: 10%;
+  margin-right: 10%;
+  width: 80%;
+  height: 30px;
+  line-height: 27px;
+  margin-top: 5px;
+  letter-spacing: 1px;
+  visibility: hidden;
+  background-color: rgba(255, 0, 50, .5);
+  border-radius: 5px;
+  padding-left: 20px;
+  border: 1px solid rgba(255, 0, 50, 1)
+}
+
+#login__error--email,
+#login__error--password,
+#register__error--password,
+#reset__error--email,
+#resetFinal__error--email,
+#resetFinal__error--password,
+#resetFinal__error--badHash,
+#resetFinal__error--expired {
+  margin-top: -30px;
+}
+
+.login__submit,
+.reset__submit,
+.resetFinal__submit {
+  width: 80%;
+  height: 50px;
+  background-color: rgba(0, 176, 206, 0.8);
+  border-radius: 5px;
+  margin: 20px auto 10px auto;
+  display: block;
+  border: rgba(0, 176, 206, 1);
+  font-size: 2rem;
+  text-transform: uppercase;
+  color: #FFF;
+  letter-spacing: 2px;
+  font-weight: 300;
+  cursor: pointer;
+}
+
+.login__reset--password {
+  color: #FFF;
+  text-align: right;
+  margin-right: 10%;
+  display: block;
+  text-decoration: none;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  float: right;
+  margin-top: 5px;
+}
+
+.login__reset--password:hover {
+  text-decoration: underline;
+}
+
+.line__text {
+    overflow: hidden;
+    text-align: center;
+    color: #FFF;
+    font-size: 2rem;
+    clear: both;
+}
+.line__text:before,
+.line__text:after {
+    background-color: rgba(255, 255, 255, 0.5);
+    content: "";
+    display: inline-block;
+    height: 1px;
+    position: relative;
+    vertical-align: middle;
+    width: 50%;
+}
+.line__text:before {
+    right: 0.5em;
+    margin-left: -50%;
+}
+.line__text:after {
+    left: 0.5em;
+    margin-right: -50%;
+}
+
+form {
+  color: white;
+  letter-spacing: 1px;
+}
+
+#login__remember {
+  margin-left: 10%;
+  float: left;
+  font-size: 3rem;
+}
+
+#login__remember--text {
+  display: block;
+  float: left;
+  width: 200px;
+  margin-top: 5px;
+}
+
+
+
+/*REGISTER*/
+
+#register__container {
+  height: 560px;
+}
+
+#register__title {
+  color: #FFF;
+  font-size: 2rem;
+  font-weight: 100;
+  letter-spacing: 2px;
+  margin-left: 10%;
+  margin-bottom: 20px;
+  padding-top: 20px;
+}
+
+/*RESET*/
+
+#reset__container {
+  height: 430px;
+}
+
+.input--solo {
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+/*RESET FINAL*/
+
+#resetFinal__container {
+  height: 600px;
+}
+
+.resetFinal__submit {
+  margin-bottom: 30px;
+}
+
+/*DATABASE */
+
+#database__container {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+#database__input,
+#database__submit,
+#database__delete {
+  width: calc(100% - 140px);
+  padding: 15px;
+  font-size: 1.8rem;
+  height: 45px;
+  margin-top: 20px;
+  margin-left: 20px;
+  border: 3px solid rgba(0, 176, 206, 1);
+  font-weight: 100;
+  letter-spacing: 2px;
+}
+
+#database__input:focus {
+  outline: 2px solid green;
+  border: 3px solid green;
+}
+
+#database__submit:focus,
+#database__delete:focus {
+  outline: none;
+  background-color: green;
+}
+
+#database__submit,
+#database__delete {
+  color: #FFF;
+  width: 100px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: rgba(0, 176, 206, 1);
+  height: 45px;
+}
+
+#database__week {
+  margin-left: 20px;
+  float: left;
+}
+
+.database__week--day {
+  position: relative;
+  color: #FFF;
+  background-color: rgba(255, 255, 255, 0.6);
+  width: 150px;
+  height: 70px;
+  line-height: 70px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-left: none;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-weight: 300;
+}
+
+#database__MONDAY {
+  border-right: none;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.database__content {
+  background-color: rgba(255, 255, 255, 0.8);
+  height: 490px;
+  width: calc(100% - 190px);
+  margin-left: 170px;
+  overflow: hidden;
+}
+
+.todo__content {
+  height: 450px;
+  width: 100%;
+  margin: 20px;
+  overflow: scroll;
+}
+
+.todo__content--item {
+  min-height: 40px;
+  width: calc(100% - 40px);
+  margin-bottom: 10px;
+  padding: 0 10px;
+  line-height: 40px;
+  font-size: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 1px;
+  font-weight: 300;
+  position: relative;
+}
+
+.todo__content--text {
+  width: calc(100% - 140px);
+  display: inline-block;
+}
+
+.todo__content--checkbox {
+  font-size: 2rem;
+  margin: 0;
+  margin-right: 10px;
+  float: left;
+  margin-top: 14px;
+}
+
+#database__delete {
+  margin-left: 20px;
+  float: left;
+  margin-top: 20px;
+  display: none;
+}
+
+.todo__update {
+  position: absolute;
+  height: 100%;
+  background-color: rgba(0, 176, 206, 1);
+  padding: 0 20px;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFF;
+  cursor: pointer;
+}
+
+.todo__update:active {
+  background-color: green;
+}

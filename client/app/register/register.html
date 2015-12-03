@@ -1,0 +1,15 @@
+<div id="register__container">
+  <h1 id="register__title">Create new account</h1>
+  <form>
+    <input type="email" ng-model="user.email" placeholder="email" class="login__input input--top">
+    <input type="text" ng-model="user.firstName" placeholder="first name" class="login__input">
+    <input type="text" ng-model="user.lastName" placeholder="last name" class="login__input">
+    <input type="password" ng-model="user.password" placeholder="password" class="login__input">
+    <input type="password" ng-model="user.passwordConfirm" placeholder="confirm password" class="login__input input--bottom">
+    <p id="register__error--empty">Please enter all fields</p>
+    <p id="register__error--password">Passwords don't match</p>
+    <button class="login__submit" ng-click="register();">Submit</button>
+    <h3 class="line__text">or</h3>
+    <button class="login__submit" ui-sref="login">Login</button>
+  </form>
+</div>

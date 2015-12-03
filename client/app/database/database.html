@@ -1,0 +1,19 @@
+<div id="database__container">
+  <button id="database__delete" ng-click="todoDelete()">Delete</button>
+  <form>
+     <input type="text" placeholder="Add a to-do..." id="database__input" ng-model="todo"><!--
+     --><button id="database__submit" type="submit" ng-click="todoSubmit()">Submit</button>
+  </form>
+  <ul id="database__week">
+    <li class="database__week--day" ng-repeat="day in days" ng-click="showTodo(day)" id="database__{{day}}">{{day}}</li>
+  </ul>
+  <div class="database__content">
+    <ul class="todo__content">
+      <li ng-repeat="todo in todos" ng-show="selected === todo.day" class="todo__content--item">
+        <input type="checkbox" class="todo__content--checkbox" ng-model="todo.isSelected" ng-click="checkDelete(todo._id)">
+        <p class="todo__content--text">{{todo.content}}</p>
+        <div class="todo__update">Update</div>
+      </li>
+    </ul>
+  </div>
+</div>
