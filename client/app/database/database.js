@@ -1,6 +1,6 @@
 angular.module('myAngular.database', [])
 
-.controller('databaseController', function($scope, CreateTodo, User, GetTodos, DeleteTodos, $state) {
+.controller('databaseController', function($scope, CreateTodo, User, GetTodos, DeleteTodos, $state, UpdateTodo, GetQuote) {
   console.log('Initialized Database Controller');
   $scope.days = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
   $scope.selected = 'MONDAY';
@@ -54,7 +54,6 @@ angular.module('myAngular.database', [])
     while(deleteTodos.length > 0) {
       if(deleteTodos.length === 1) {
         DeleteTodos.deleteTodos(deleteTodos[0]).then(function(response){
-          console.log(response);
           getTodos();
           checkDeleteButton();
           document.getElementById('database__input').focus();
@@ -64,6 +63,26 @@ angular.module('myAngular.database', [])
       }
       deleteTodos.splice(0, 1);
     }
+  }
+
+  $scope.editTodo = function(todo) {
+    document.getElementById(todo._id + '__text').style.display = 'none';
+    document.getElementById(todo._id + '__input').style.display = 'inherit';
+    document.getElementById(todo._id + '__input').value = todo.content;
+    document.getElementById(todo._id + '__edit').style.display = 'none';
+    document.getElementById(todo._id + '__update').style.display = 'inherit';
+  }
+
+  $scope.saveTodo = function(todo) {
+    var newContent = document.getElementById(todo._id + '__input').value;
+    todo.content = newContent;
+    UpdateTodo.updateTodo(todo).then(function() {
+      getTodos();
+      document.getElementById(todo._id + '__input').style.display = 'none'; 
+      document.getElementById(todo._id + '__text').style.display = 'inherit'; 
+      document.getElementById(todo._id + '__update').style.display = 'none';
+      document.getElementById(todo._id + '__edit').style.display = 'inherit';
+    });
   }
 
   var deleteChecked = function() {
@@ -90,11 +109,18 @@ angular.module('myAngular.database', [])
   }
 
   var getTodos = function() {
-    console.log('getTodos2');
     return GetTodos.getTodos(user).then(function(todos) {
       $scope.todos = todos;
     });
   }
+
+  var getQuote = function() {
+    return GetQuote.getQuote().then(function(quote) {
+      $scope.quote = quote;
+    })
+  }
+
+  getQuote();
 
   getTodos();
 });

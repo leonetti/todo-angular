@@ -46,7 +46,7 @@ angular.module('myAngular.services', [])
     logoff: function() {
       return $http({
         method: 'GET',
-        url: 'api/account/logoff',
+        url: 'api/account/logoff'
       }).then(function success(response) {
         User.setUser({});
         $state.go('login');
@@ -189,14 +189,36 @@ angular.module('myAngular.services', [])
 
 .factory('UpdateTodo', function ($http) {
   return {
-    updateTodo: function(id) {
+    updateTodo: function(todo) {
       return $http({
-        method: 'PUT',
-        url: 'api/todo/edit/' + id
+        method: 'POST',
+        url: 'api/todo/edit',
+        data: todo
       }).then(function success(response) {
         return response;
       }, function error(response) {
         return response;
+      })
+    }
+  }
+})
+
+.factory('GetQuote', function ($http) {
+  return {
+    getQuote: function() {
+      return $http({
+        method: 'POST',
+        url: 'http://api.forismatic.com/api/1.0/method=getQuote&key=457653&format=json&lang=en',
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
+          "access-control-allow-headers": "content-type, accept, X-Parse-Application-Id, X-Parse-REST-API-Key",
+          "access-control-max-age": 10 // Seconds.,
+        }
+      }).then(function success(response) {
+        return response;
+      }, function error(response) {
+        console.log(response);
       })
     }
   }

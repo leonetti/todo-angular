@@ -116,12 +116,15 @@ router.route('/todo/delete/:id')
   })
 });
 
-// router.route('/todo/edit/:id')
-// .put(function(req, res) {
-//   Todo.findById(req.params.id, function(err, todo) {
 
-//   })
-// })
+router.route('/todo/edit')
+.post(function(req, res) {
+  Todo.findById(req.body._id, function(err, todo) {
+    todo.content = req.body.content;
+    todo.save();
+    res.send('complete');
+  })
+})
 
 module.exports = router;
 

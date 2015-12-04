@@ -11,9 +11,15 @@
     <ul class="todo__content">
       <li ng-repeat="todo in todos" ng-show="selected === todo.day" class="todo__content--item">
         <input type="checkbox" class="todo__content--checkbox" ng-model="todo.isSelected" ng-click="checkDelete(todo._id)">
-        <p class="todo__content--text">{{todo.content}}</p>
-        <div class="todo__update">Update</div>
+        <p class="todo__content--text" id="{{todo._id}}__text">{{todo.content}}</p>
+        <div class="todo__update" ng-click="editTodo(todo)" id="{{todo._id}}__edit">Edit</div>
+        <form>
+          <input class="todo__edit" id="{{todo._id}}__input">
+          <button class="todo__update todo__save" type="submit" ng-click="saveTodo(todo)" id="{{todo._id}}__update">Save</button>
+        </form>
       </li>
     </ul>
   </div>
+  <div ui-sref="login" id="logoff">Logoff</div>
+  <h1 ng-model="quote">{{quote}}</h1>
 </div>

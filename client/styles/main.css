@@ -441,8 +441,50 @@ form {
   justify-content: center;
   color: #FFF;
   cursor: pointer;
+  letter-spacing: 1px;
 }
 
 .todo__update:active {
   background-color: green;
+}
+
+.todo__edit,
+.todo__save {
+  display: none;
+}
+
+.todo__edit {
+  width: calc(100% - 140px);
+  height: 40px;
+  font-size: 1.5rem;
+  font-weight: 100;
+  padding: 5px;
+}
+
+.todo__save {
+  letter-spacing: 0;
+  border: none;
+  font-size: 1.5rem;
+  font-weight: 100;
+}
+
+#logoff {
+  color: #FFF;
+  background-color: rgba(255, 255, 255, 0.6);
+  display: block;
+  width: 100px;
+  height: 45px;
+  margin: 20px auto;
+  line-height: 45px;
+  text-align: center;
+  font-size: 1.5rem;
+  letter-spacing: 3px;
+  font-weight: 300;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  outline: 4px solid rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+}
+
+#logoff:active {
+  background-color: rgba(255, 255, 255, 0.4);
 }
