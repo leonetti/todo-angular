@@ -1,6 +1,6 @@
 angular.module('myAngular.database', [])
 
-.controller('databaseController', function($scope, CreateTodo, User, GetTodos, DeleteTodos, $state, UpdateTodo, GetQuote) {
+.controller('databaseController', function($scope, CreateTodo, User, GetTodos, DeleteTodos, $state, UpdateTodo) {
   console.log('Initialized Database Controller');
   $scope.days = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
   $scope.selected = 'MONDAY';
@@ -113,14 +113,6 @@ angular.module('myAngular.database', [])
       $scope.todos = todos;
     });
   }
-
-  var getQuote = function() {
-    return GetQuote.getQuote().then(function(quote) {
-      $scope.quote = quote;
-    })
-  }
-
-  getQuote();
 
   getTodos();
 });

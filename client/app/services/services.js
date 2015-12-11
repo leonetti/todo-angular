@@ -203,27 +203,6 @@ angular.module('myAngular.services', [])
   }
 })
 
-.factory('GetQuote', function ($http) {
-  return {
-    getQuote: function() {
-      return $http({
-        method: 'POST',
-        url: 'http://api.forismatic.com/api/1.0/method=getQuote&key=457653&format=json&lang=en',
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
-          "access-control-allow-headers": "content-type, accept, X-Parse-Application-Id, X-Parse-REST-API-Key",
-          "access-control-max-age": 10 // Seconds.,
-        }
-      }).then(function success(response) {
-        return response;
-      }, function error(response) {
-        console.log(response);
-      })
-    }
-  }
-})
-
 .factory('User', function() {
   var user = {};
   return {
